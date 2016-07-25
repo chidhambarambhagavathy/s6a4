@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript Expression Evaluator</title>
+	<style type="text/css">
+		body {
+			background-color: black;
+			color: white;
+		}
+	</style>
+	<script type="text/javascript">
+		/**
+		* Stack that will hold the braces
+		*/
+		var stack = [];
+
+		/**
+		* Returns "Correct" when parenthesis are validated, "Incorrect" otherwise
+		*/
+		function checkBrackets(input1)
+		{ 
+		   if(processExp(input1))
+		    return "Correct";
+		   else
+		    return "Incorrect";
+		} 
+
+		function processExp(exp)
+		{
+		   for(var i =0;i<exp.length;i++)
+		   {
+		      if(exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
+		        stack.push(exp[i]);
+		      else if(exp[i] == ')' || exp[i] == '}' || exp[i] == ']')
+		      {
+		        if(stack.length==0 || !isMatchingPair(stack[stack.length-1],exp[i]))
+		           return false;
+		        else
+		           stack.pop();
+		      }
+		   }
+		   if(stack.length==0)
+		      return true;
+		   else
+		      return false;
+		}
+
+		function isMatchingPair(ch1,ch2)
+		{
+		   if(ch1 == '(' && ch2 == ')')
+		     return true;
+		   else if(ch1 == '{' && ch2 == '}')
+		     return true;
+		   else if(ch1 == '[' && ch2 == ']')
+		     return true;
+		   else
+		     return false;
+		}
+
+		document.write(checkBrackets('( ( a + b ) / 5 abd )')+"<br>");
+		document.write(checkBrackets(') ( a + b ) )')+"<br>");
+		document.write(checkBrackets('( b * ( c + d *2 / ( 2 + ( 12 abc / ( a + 3 ) ) ) )')+"<br>");
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
